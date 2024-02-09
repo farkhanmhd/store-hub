@@ -7,7 +7,7 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const onLogoutHandler = () => {
-    dispatch(setUserData({ username: "", password: "" }));
+    dispatch(setUserData({ username: "", password: "", authed: false }));
     localStorage.removeItem("token");
     navigate("/login");
   };
