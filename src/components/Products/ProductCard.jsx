@@ -5,8 +5,8 @@ const ProductCard = ({ id, title, description, price, image }) => {
   return (
     <li>
       <Link to={`/products/${id}`}>
-        <div className="mx-auto mt-11 transform overflow-hidden rounded-lg duration-300 shadow-md">
-          <div className="image-container bg-white rounded-lg">
+        <div className="mx-auto transform overflow-hidden rounded-lg duration-300 border hover:shadow-lg">
+          <div className="image-container bg-white rounded-lg px-3">
             <img
               className="w-full object-contain object-center aspect-[10/16] rounded-lg"
               src={image}

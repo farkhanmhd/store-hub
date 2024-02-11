@@ -35,7 +35,7 @@ const Carousel = () => {
             StoreHub
           </span>
         </h2>
-        <div className="overflow-hidden relative h-[300px] md:h-[400px] lg:h-[600px] brightness-[25%]">
+        <div className="overflow-hidden relative h-[200px] md:h-[300px] lg:h-[400px] brightness-[25%]">
           <div
             className={`duration-700 ease-in-out ${
               currentIndex === 0 ? "opacity-100" : "opacity-0"

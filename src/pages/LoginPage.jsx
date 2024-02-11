@@ -2,7 +2,6 @@ import { useRef, useEffect } from "react";
 import { setUserInput } from "../slices/userSlice";
 import useUser from "../hooks/useUser";
 import Input from "../components/Input/Input";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
@@ -120,10 +119,6 @@ const LoginPage = () => {
       </div>
     </>
   );
-};
-
-LoginPage.propTypes = {
-  onLogin: PropTypes.func.isRequired,
 };
 
 export default LoginPage;

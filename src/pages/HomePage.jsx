@@ -22,6 +22,7 @@ export default function HomePage() {
       }
     };
     getProducts();
+    return () => {};
   }, []);
 
   const onLogoutHandler = () => {
