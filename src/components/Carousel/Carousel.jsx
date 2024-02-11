@@ -9,7 +9,7 @@ const Carousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 5000); // Change slide every 5 seconds (adjust as needed)
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -29,7 +29,7 @@ const Carousel = () => {
   return (
     <>
       <div id="default-carousel" className="relative" data-carousel="static">
-        <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[998] text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold w-full text-center">
+        <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[998] text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold w-[90%] text-center">
           Welcome to{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 to-violet-500">
             StoreHub

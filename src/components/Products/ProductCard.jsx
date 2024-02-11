@@ -1,11 +1,22 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import useCart from "../../hooks/useCart";
+import { addToCart } from "../../slices/cartSlice";
+import useUser from "../../hooks/useUser";
 
 const ProductCard = ({ id, title, description, price, image }) => {
+  const { username } = useUser();
+  const { dispatchCart } = useCart();
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+    dispatchCart(addToCart({ username, id, title, description, price, image }));
+  };
+
   return (
     <li>
       <Link to={`/products/${id}`}>
-        <div className="mx-auto transform overflow-hidden rounded-lg duration-300 border hover:shadow-lg">
+        <div className="mx-auto transform overflow-hidden rounded-lg duration-300 border hover:shadow-lg bg-base-100">
           <div className="image-container bg-white rounded-lg px-3">
             <img
               className="w-full object-contain object-center aspect-[10/16] rounded-lg"
@@ -23,7 +34,12 @@ const ProductCard = ({ id, title, description, price, image }) => {
             </p>
             <div className="flex items-center">
               <p className="mr-2 text-lg font-semibold">${price}</p>
-              <button className="btn btn-ghost">Add to Cart</button>
+              <button
+                className="btn btn-ghost"
+                onClick={(e) => addToCartHandler(e)}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>

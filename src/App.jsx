@@ -5,9 +5,14 @@ import { getSingleUser } from "./utils/api";
 import HomePage from "./pages/HomePage";
 import { setUserData } from "./slices/userSlice";
 import { useEffect } from "react";
+import Navbar from "./components/Navigation/Navbar";
+import CartPage from "./pages/CartPage";
+import useCart from "./hooks/useCart";
+import { setCart } from "./slices/cartSlice";
 
 export default function App() {
   const { authed, dispatchUser } = useUser();
+  const { dispatchCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,13 +23,24 @@ export default function App() {
           const data = await getSingleUser(token);
           const { username, password } = data;
           dispatchUser(setUserData({ username, password, authed: true }));
-          navigate("/");
+          const cart = localStorage.getItem("cart");
+          if (cart) {
+            dispatchCart(setCart(JSON.parse(cart)));
+          }
         };
 
         relogin();
       }
     }
+
+    return () => {};
   }, []);
+
+  const onLogoutHandler = () => {
+    dispatchUser(setUserData({ username: "", password: "", authed: false }));
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   if (!authed) {
     return (
@@ -34,8 +50,12 @@ export default function App() {
     );
   }
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-    </Routes>
+    <>
+      <Navbar onLogout={onLogoutHandler} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+      </Routes>
+    </>
   );
 }
