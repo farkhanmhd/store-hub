@@ -16,14 +16,14 @@ const LoginPage = () => {
     usernameRef.current.focus();
   }, []);
 
-  const { username, password, dispatch } = useUser();
+  const { username, password, dispatchUser } = useUser();
 
   const onLoginHandler = async (e) => {
     e.preventDefault();
     const data = await userLogin(username, password);
     if (data.status === 200) {
       localStorage.setItem("token", data.token);
-      dispatch(setUserData({ username, password, authed: true }));
+      dispatchUser(setUserData({ username, password, authed: true }));
       navigate("/");
     } else {
       const modal = document.getElementById("my_modal_2");
@@ -60,7 +60,7 @@ const LoginPage = () => {
                 purpose="username"
                 value={username}
                 onChange={(e) =>
-                  dispatch(
+                  dispatchUser(
                     setUserInput({ name: "username", value: e.target.value })
                   )
                 }
@@ -90,7 +90,7 @@ const LoginPage = () => {
                 purpose="password"
                 value={password}
                 onChange={(e) =>
-                  dispatch(
+                  dispatchUser(
                     setUserInput({ name: "password", value: e.target.value })
                   )
                 }

@@ -7,7 +7,7 @@ import { setUserData } from "./slices/userSlice";
 import { useEffect } from "react";
 
 export default function App() {
-  const { authed, dispatch } = useUser();
+  const { authed, dispatchUser } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function App() {
         const relogin = async () => {
           const data = await getSingleUser(token);
           const { username, password } = data;
-          dispatch(setUserData({ username, password, authed: true }));
+          dispatchUser(setUserData({ username, password, authed: true }));
           navigate("/");
         };
 

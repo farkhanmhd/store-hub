@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
 import ThemeController from "./ThemeController";
+import SearchInput from "./SearchInput";
+import useUser from "../../hooks/useUser";
 
 const Navbar = ({ onLogout }) => {
+  const { username } = useUser();
   return (
-    <div className="navbar bg-base-100 px-52">
+    <div className="navbar bg-base-100 fixed z-[999]">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">StoreHub</a>
       </div>
-      <div className="flex-none gap-x-3">
+      <div className="flex-none lg:gap-x-3">
+        <SearchInput />
         <ThemeController />
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -60,10 +64,7 @@ const Navbar = ({ onLogout }) => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
+              <a className="justify-between">Profile ({username})</a>
             </li>
             <li>
               <a>Settings</a>

@@ -1,7 +1,23 @@
+import { useState, useEffect } from "react";
+
 const ThemeController = () => {
+  const [isDark, setIsDark] = useState(
+    JSON.parse(localStorage.getItem("isdark"))
+  );
+
+  useEffect(() => {
+    localStorage.setItem("isdark", JSON.stringify(isDark));
+  }, [isDark]);
+
   return (
     <label className="swap swap-rotate btn btn-ghost rounded-full grid place-content-center w-[48px]">
-      <input type="checkbox" className="theme-controller" value="night" />
+      <input
+        type="checkbox"
+        className="theme-controller"
+        value="night"
+        checked={isDark}
+        onChange={() => setIsDark(!isDark)}
+      />
       <svg
         className="swap-on fill-current w-5 h-5"
         xmlns="http://www.w3.org/2000/svg"

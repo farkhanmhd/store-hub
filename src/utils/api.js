@@ -33,4 +33,14 @@ const getSingleUser = async (token) => {
   }
 };
 
-export { userLogin, getSingleUser };
+const getAllProducts = async () => {
+  try {
+    const response = await axios.get(`${ENDPOINT}/products`);
+    const data = await response.data;
+    return data;
+  } catch (error) {
+    return { status: error.response.status, message: error.response.data };
+  }
+};
+
+export { userLogin, getSingleUser, getAllProducts };
