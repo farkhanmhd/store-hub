@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const existingTarget = (state, username, id) => {
+  const existingUsername = state.find((user) => user.username === username);
+  const existingItem = existingUsername.items.find((item) => item.id === id);
+  return [existingUsername, existingItem];
+};
+
 const updateQtyAndTotal = (state, username) => {
   const indexTarget = state.findIndex((user) => user.username === username);
   state[indexTarget].quantityTotal = state[indexTarget].items.reduce(
@@ -24,12 +30,13 @@ export const cartSlice = createSlice({
     },
     addToCart: (state, action) => {
       const { username, id, title, description, price, image } = action.payload;
-      const existingUsername = state.find((user) => user.username === username);
+      const [existingUsername, existingItem] = existingTarget(
+        state,
+        username,
+        id
+      );
 
       if (existingUsername) {
-        const existingItem = existingUsername.items.find(
-          (item) => item.id === id
-        );
         if (existingItem) {
           existingItem.qty += 1;
           existingItem.subTotal = existingItem.qty * existingItem.price;
@@ -69,9 +76,10 @@ export const cartSlice = createSlice({
     reduceQty: (state, action) => {
       const { username, id } = action.payload;
 
-      const existingUsername = state.find((user) => user.username === username);
-      const existingItem = existingUsername.items.find(
-        (item) => item.id === id
+      const [existingUsername, existingItem] = existingTarget(
+        state,
+        username,
+        id
       );
 
       existingItem.qty -= 1;
@@ -88,9 +96,10 @@ export const cartSlice = createSlice({
 
     removeCart: (state, action) => {
       const { username, id } = action.payload;
-      const existingUsername = state.find((user) => user.username === username);
-      const existingItem = existingUsername.items.find(
-        (item) => item.id === id
+      const [existingUsername, existingItem] = existingTarget(
+        state,
+        username,
+        id
       );
       existingUsername.items = existingUsername.items.filter(
         (item) => item !== existingItem
