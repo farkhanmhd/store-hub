@@ -89,9 +89,6 @@ const Navbar = ({ onLogout }) => {
               <a className="justify-between">Profile ({username})</a>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
               <a onClick={onLogout}>Logout</a>
             </li>
           </ul>

@@ -2,7 +2,6 @@ import { useRef, useEffect } from "react";
 import { setUserInput } from "../slices/userSlice";
 import useUser from "../hooks/useUser";
 import Input from "../components/Input/Input";
-import { Link } from "react-router-dom";
 import Modal from "../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../utils/api";
@@ -75,14 +74,6 @@ const LoginPage = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <Link
-                    to="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
               </div>
               <Input
                 type="password"
@@ -105,16 +96,6 @@ const LoginPage = () => {
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            {`Don't have an account? `}
-            <Link
-              to="/register"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Register
-            </Link>
-          </p>
         </div>
       </div>
     </>

@@ -14,7 +14,7 @@ const CartPage = () => {
         {username} Cart
       </h1>
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-        <div className="rounded-lg md:w-2/3 md:max-h-[70vh] overflow-auto">
+        <div className="rounded-lg md:w-2/3 md:max-h-[70vh] overflow-auto flex flex-col gap-y-5">
           {userCart.items.map((item) => (
             <Cart key={item.id} {...item} />
           ))}

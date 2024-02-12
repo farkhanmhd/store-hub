@@ -108,9 +108,37 @@ export const cartSlice = createSlice({
       updateQtyAndTotal(state, username);
       saveCart(state);
     },
+
+    addWithQty: (state, action) => {
+      const { username, id, title, description, price, image, qty } =
+        action.payload;
+      const [existingUsername, existingItem] = existingTarget(
+        state,
+        username,
+        id
+      );
+
+      if (existingItem) {
+        existingItem.qty += qty;
+        existingItem.subTotal = existingItem.qty * existingItem.price;
+      } else {
+        existingUsername.items.push({
+          id,
+          qty,
+          title,
+          description,
+          price,
+          image,
+          subTotal: qty * price,
+        });
+      }
+      updateQtyAndTotal(state, username);
+      saveCart(state);
+    },
   },
 });
 
-export const { setCart, addToCart, reduceQty, removeCart } = cartSlice.actions;
+export const { setCart, addToCart, reduceQty, removeCart, addWithQty } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

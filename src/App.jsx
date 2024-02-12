@@ -9,6 +9,8 @@ import Navbar from "./components/Navigation/Navbar";
 import CartPage from "./pages/CartPage";
 import useCart from "./hooks/useCart";
 import { setCart } from "./slices/cartSlice";
+import ProductPage from "./pages/ProductPage";
+import Footer from "./components/Footer/Footer";
 
 export default function App() {
   const { authed, dispatchUser } = useUser();
@@ -50,12 +52,14 @@ export default function App() {
     );
   }
   return (
-    <>
+    <div id="app" className="min-h-screen relative">
       <Navbar onLogout={onLogoutHandler} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
-    </>
+      <Footer />
+    </div>
   );
 }

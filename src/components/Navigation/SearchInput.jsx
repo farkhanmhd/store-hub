@@ -4,12 +4,14 @@ import { searchProduct } from "../../utils/util";
 import useProducts from "../../hooks/useProducts";
 import { setProducts } from "../../slices/productsSlice";
 import { getAllProducts } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
   const [searchValue, setSearchValue] = useState("");
   const { dispatchProducts } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
   const [allProducts, setAllProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -55,8 +57,16 @@ const SearchInput = () => {
     dispatchProducts,
   ]);
 
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/?search=${searchValue}`);
+  };
+
   return (
-    <form className="relative mx-auto w-max">
+    <form
+      className="relative mx-auto w-max"
+      onSubmit={(e) => onSubmitHandler(e)}
+    >
       <input
         type="search"
         className="peer cursor-pointer relative z-10 h-12 w-12 rounded-full focus:border  bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:pl-16 focus:pr-4"

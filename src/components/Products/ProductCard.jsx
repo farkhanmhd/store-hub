@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import { addToCart } from "../../slices/cartSlice";
 import useUser from "../../hooks/useUser";
+import Modal from "../Modal/Modal";
 
 const ProductCard = ({ id, title, description, price, image }) => {
   const { username } = useUser();
@@ -11,11 +12,14 @@ const ProductCard = ({ id, title, description, price, image }) => {
   const addToCartHandler = (e) => {
     e.preventDefault();
     dispatchCart(addToCart({ username, id, title, description, price, image }));
+    const modal = document.getElementById("my_modal_2");
+    modal.showModal();
   };
 
   return (
     <li>
-      <Link to={`/products/${id}`}>
+      <Modal text={"This item has been Added to cart!"} title={"Add to Cart"} />
+      <Link to={`/product-${id}`}>
         <div className="mx-auto transform overflow-hidden rounded-lg duration-300 border hover:shadow-lg bg-base-100">
           <div className="image-container bg-white rounded-lg px-3">
             <img
