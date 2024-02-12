@@ -1,16 +1,22 @@
 import PropTypes from "prop-types";
 import useCart from "../../hooks/useCart";
-import { addToCart, reduceQty } from "../../slices/cartSlice";
+import { addToCart, reduceQty, removeCart } from "../../slices/cartSlice";
+import useUser from "../../hooks/useUser";
 
 const Cart = ({ id, title, image, price, qty, subTotal }) => {
   const { dispatchCart } = useCart();
+  const { username } = useUser();
 
   const addQtyHandler = () => {
-    dispatchCart(addToCart({ id, title, price }));
+    dispatchCart(addToCart({ username, id }));
   };
 
   const reduceQtyHandler = () => {
-    dispatchCart(reduceQty({ id, title, price }));
+    dispatchCart(reduceQty({ username, id }));
+  };
+
+  const removeCartHandler = () => {
+    dispatchCart(removeCart({ username, id }));
   };
 
   return (
@@ -48,7 +54,7 @@ const Cart = ({ id, title, image, price, qty, subTotal }) => {
           </div>
           <div className="flex items-center space-x-4">
             <p className="text-sm">$ {subTotal}</p>
-            <button>
+            <button onClick={removeCartHandler}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

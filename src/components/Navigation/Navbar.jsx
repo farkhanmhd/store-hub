@@ -6,8 +6,19 @@ import { Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 
 const Navbar = ({ onLogout }) => {
-  const { cart } = useCart();
+  const { carts } = useCart();
   const { username } = useUser();
+  const cartsUserIndex = carts.findIndex((cart) => cart.username === username);
+  let cartsCount;
+  let cartsTotal;
+  if (cartsUserIndex === -1) {
+    cartsCount = 0;
+    cartsTotal = 0;
+  } else {
+    cartsCount = carts[cartsUserIndex].items.length;
+    cartsTotal = carts[cartsUserIndex].total;
+  }
+
   return (
     <div className="navbar bg-base-100 fixed z-[999]">
       <div className="flex-1">
@@ -36,7 +47,7 @@ const Navbar = ({ onLogout }) => {
                 />
               </svg>
               <span className="badge badge-sm indicator-item">
-                {cart.items.length}
+                {cartsCount}
               </span>
             </div>
           </div>
@@ -46,9 +57,9 @@ const Navbar = ({ onLogout }) => {
           >
             <div className="card-body">
               <span className="font-bold text-lg">
-                {cart.items.length} Items on Cart
+                {cartsCount} Items on Cart
               </span>
-              <span className="text-info">Subtotal: ${cart.total}</span>
+              <span className="text-info">Subtotal: ${cartsTotal}</span>
               <div className="card-actions">
                 <Link to={"/cart"} className="btn btn-primary btn-block">
                   View cart

@@ -23,9 +23,9 @@ export default function App() {
           const data = await getSingleUser(token);
           const { username, password } = data;
           dispatchUser(setUserData({ username, password, authed: true }));
-          const cart = localStorage.getItem("cart");
-          if (cart) {
-            dispatchCart(setCart(JSON.parse(cart)));
+          const carts = localStorage.getItem("carts");
+          if (carts) {
+            dispatchCart(setCart(JSON.parse(carts)));
           }
         };
 
