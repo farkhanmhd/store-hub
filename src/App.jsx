@@ -25,16 +25,16 @@ export default function App() {
           const data = await getSingleUser(token);
           const { username, password } = data;
           dispatchUser(setUserData({ username, password, authed: true }));
-          const carts = localStorage.getItem("carts");
-          if (carts) {
-            dispatchCart(setCart(JSON.parse(carts)));
-          }
         };
 
         relogin();
-      }
+      } else navigate("/login");
     }
 
+    const carts = localStorage.getItem("carts");
+    if (carts) {
+      dispatchCart(setCart(JSON.parse(carts)));
+    }
     return () => {};
   }, []);
 
